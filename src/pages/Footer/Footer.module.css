@@ -1,0 +1,59 @@
+.footer {
+  background-color: #721111;
+  color: #fff;
+  padding: 3rem 1.5rem 1rem 1.5rem;
+  margin-top: auto;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footerInfo h3 {
+  color: #F7D87F;
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.footerInfo p, .footerContact p {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  line-height: 1.5;
+}
+
+.footerLinks h4, .footerContact h4 {
+  color: #F7D87F;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footerLinks a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footerLinks a:hover {
+  color: #F7D87F;
+}
+
+.footerBottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: #ccc;
+}
