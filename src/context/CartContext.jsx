@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
 
-
-// Productos de NovaStore
+// Arreglo de productos
 const rawProducts = [
   { id: 1, name: 'Samsung Smart TV 55" Crystal UHD DU7000 (2024)', oldPrice: 599.00, price: 429.00, discountPercent: 28, isOffer: true, stock: 5, description: 'Procesador Crystal 4K, HDR10+ y sistema operativo Tizen.', image: '/src/assets/PantallaSmart.png' },
   { id: 2, name: 'Samsung 55" Neo QLED 4K QN85D', oldPrice: 1399.00, price: 999.00, discountPercent: 29, isOffer: true, stock: 5, description: 'Tecnología Quantum Matrix con Mini LED y procesador NQ4 AI Gen2.', image: '/src/assets/PantaMiniLed.png' },
@@ -13,7 +12,6 @@ const rawProducts = [
   { id: 8, name: 'Audífonos Apple AirPods Pro (2.ª generación) USB-C', oldPrice: 249.00, price: 189.00, discountPercent: 24, isOffer: true, stock: 9, description: 'Cancelación Activa de Ruido, Audio Espacial y estuche MagSafe.', image: '/src/assets/Airport.png' },
   { id: 9, name: 'Smartwatch Argom Tech T9080 SkeiWatch C70', oldPrice: 45.00, price: 34.99, discountPercent: 22, isOffer: true, stock: 12, description: 'Pantalla táctil HD de 1.39", monitor de oxígeno y ritmo cardíaco.', image: '/src/assets/Smartwat.png' },
   { id: 10, name: 'Maleta American Tourister Starvibe Spinner 55cm', oldPrice: 140.00, price: 98.00, discountPercent: 30, isOffer: true, stock: 6, description: 'Equipaje de mano rígido en polipropileno expansible con cerradura TSA.', image: '/src/assets/MaletaAma.png' },
-
   { id: 11, name: 'Teclado Mecánico Redragon Kumara K552 RGB', oldPrice: 45.00, price: 45.00, discountPercent: 0, isOffer: false, stock: 15, description: 'Switches mecánicos Outemu Blue y retroiluminación RGB.', image: '/src/assets/teclado11.png' },
   { id: 12, name: 'Mouse Inalámbrico Ergonómico Logitech MX Master 3S', oldPrice: 99.99, price: 99.99, discountPercent: 0, isOffer: false, stock: 12, description: 'Sensor de 8000 DPI y clicks silenciosos para máxima productividad.', image: '/src/assets/mouse12.png' },
   { id: 13, name: 'Soporte Ajustable de Aluminio UGREEN para Laptop', oldPrice: 29.99, price: 29.99, discountPercent: 0, isOffer: false, stock: 20, description: 'Diseño plegable ergonómico compatible con laptops de 11 a 17 pulgadas.', image: '/src/assets/soporte13.png' },
@@ -38,130 +36,47 @@ const initialState = {
 
 function cartReducer(state, action) {
   switch (action.type) {
-
-    // AGREGAR PRODUCTO
     case 'ADD_TO_CART': {
-      const product = state.products.find(
-        p => p.id === action.payload.id
-      );
-
+      const product = state.products.find(p => p.id === action.payload.id);
       if (!product) return state;
-
-      const existingItem = state.cart.find(
-        item => item.id === product.id
-      );
-
+      const existingItem = state.cart.find(item => item.id === product.id);
       if (existingItem) {
-
-        if (existingItem.quantity >= product.stock) {
-          return state;
-        }
-
+        if (existingItem.quantity >= product.stock) return state;
         return {
           ...state,
           cart: state.cart.map(item =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
+            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
           )
         };
       }
-
-      return {
-        ...state,
-        cart: [
-          ...state.cart,
-          { ...product, quantity: 1 }
-        ]
-      };
+      return { ...state, cart: [...state.cart, { ...product, quantity: 1 }] };
     }
-
-    // ELIMINAR PRODUCTO
     case 'REMOVE_FROM_CART':
-      return {
-        ...state,
-        cart: state.cart.filter(
-          item => item.id !== action.payload
-        )
-      };
-
-    // MODIFICAR CANTIDAD
+      return { ...state, cart: state.cart.filter(item => item.id !== action.payload) };
     case 'UPDATE_QUANTITY': {
       const { id, quantity } = action.payload;
-
-      if (quantity < 1) {
-        return {
-          ...state,
-          cart: state.cart.filter(item => item.id !== id)
-        };
-      }
-
+      if (quantity < 1) return { ...state, cart: state.cart.filter(item => item.id !== id) };
       const product = state.products.find(p => p.id === id);
-
-      if (!product || quantity > product.stock) {
-        return state;
-      }
-
+      if (!product || quantity > product.stock) return state;
       return {
         ...state,
-        cart: state.cart.map(item =>
-          item.id === id
-            ? { ...item, quantity }
-            : item
-        )
+        cart: state.cart.map(item => item.id === id ? { ...item, quantity } : item)
       };
     }
-
-    // VACIAR CARRITO
     case 'CLEAR_CART':
-      return {
-        ...state,
-        cart: []
-      };
-
-    // CUPÓN
+      return { ...state, cart: [] };
     case 'APPLY_COUPON':
-      return {
-        ...state,
-        coupon: action.payload
-      };
-
-    // QUITAR CUPÓN
+      return { ...state, coupon: action.payload };
     case 'REMOVE_COUPON':
-      return {
-        ...state,
-        coupon: null
-      };
-
-    // TEMA
+      return { ...state, coupon: null };
     case 'SET_THEME':
-      return {
-        ...state,
-        theme: action.payload
-      };
-
-    // FILTRO DE OFERTAS
+      return { ...state, theme: action.payload };
     case 'SET_FILTER_OFFERS':
-      return {
-        ...state,
-        filterOfferOnly: action.payload,
-        selectedProductId: null
-      };
-
-    // PRODUCTO SELECCIONADO
+      return { ...state, filterOfferOnly: action.payload, selectedProductId: null };
     case 'SET_SELECTED_PRODUCT':
-      return {
-        ...state,
-        selectedProductId: action.payload
-      };
-
-    // ABRIR / CERRAR CARRITO
+      return { ...state, selectedProductId: action.payload };
     case 'TOGGLE_CART':
-      return {
-        ...state,
-        isCartOpen: !state.isCartOpen
-      };
-
+      return { ...state, isCartOpen: !state.isCartOpen };
     default:
       return state;
   }
@@ -169,69 +84,20 @@ function cartReducer(state, action) {
 
 const CartContext = createContext();
 
+// EXPORTACIÓN 1: CartProvider
 export function CartProvider({ children }) {
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  const [state, dispatch] = useReducer(
-    cartReducer,
-    initialState
-  );
-
-  const addToCart = product =>
-    dispatch({
-      type: 'ADD_TO_CART',
-      payload: product
-    });
-
-  const removeFromCart = id =>
-    dispatch({
-      type: 'REMOVE_FROM_CART',
-      payload: id
-    });
-
-  const updateQuantity = (id, quantity) =>
-    dispatch({
-      type: 'UPDATE_QUANTITY',
-      payload: { id, quantity }
-    });
-
-  const clearCart = () =>
-    dispatch({
-      type: 'CLEAR_CART'
-    });
-
-  const applyCoupon = coupon =>
-    dispatch({
-      type: 'APPLY_COUPON',
-      payload: coupon
-    });
-
-  const removeCoupon = () =>
-    dispatch({
-      type: 'REMOVE_COUPON'
-    });
-
-  const setTheme = themeName =>
-    dispatch({
-      type: 'SET_THEME',
-      payload: themeName
-    });
-
-  const setFilterOffers = status =>
-    dispatch({
-      type: 'SET_FILTER_OFFERS',
-      payload: status
-    });
-
-  const setSelectedProduct = id =>
-    dispatch({
-      type: 'SET_SELECTED_PRODUCT',
-      payload: id
-    });
-
-  const toggleCart = () =>
-    dispatch({
-      type: 'TOGGLE_CART'
-    });
+  const addToCart = product => dispatch({ type: 'ADD_TO_CART', payload: product });
+  const removeFromCart = id => dispatch({ type: 'REMOVE_FROM_CART', payload: id });
+  const updateQuantity = (id, quantity) => dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
+  const clearCart = () => dispatch({ type: 'CLEAR_CART' });
+  const applyCoupon = coupon => dispatch({ type: 'APPLY_COUPON', payload: coupon });
+  const removeCoupon = () => dispatch({ type: 'REMOVE_COUPON' });
+  const setTheme = themeName => dispatch({ type: 'SET_THEME', payload: themeName });
+  const setFilterOffers = status => dispatch({ type: 'SET_FILTER_OFFERS', payload: status });
+  const setSelectedProduct = id => dispatch({ type: 'SET_SELECTED_PRODUCT', payload: id });
+  const toggleCart = () => dispatch({ type: 'TOGGLE_CART' });
 
   return (
     <CartContext.Provider
@@ -254,4 +120,5 @@ export function CartProvider({ children }) {
   );
 }
 
+// EXPORTACIÓN 2: useCart
 export const useCart = () => useContext(CartContext);
