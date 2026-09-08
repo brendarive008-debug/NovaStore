@@ -1,0 +1,180 @@
+/* src/pages/Catalogo/Productos.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.catalogoContainer {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  color: #1a1a1a;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.headerCatalogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1.5rem;
+}
+
+.tituloSec {
+  font-size: 2rem;
+  color: #BE1A1A;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.subTituloSec {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.3rem 0 0 0;
+}
+
+.filtroBtn {
+  background: #ffffff;
+  border: 2px solid #F7D87F;
+  color: #8c0f0f;
+  padding: 0.65rem 1.4rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.filtroBtn:hover {
+  background: #F7D87F;
+  color: #BE1A1A;
+}
+
+.gridCatalogo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.cardProd {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.cardProd:hover {
+  transform: translateY(-6px);
+  border-color: #F7D87F;
+  box-shadow: 0 15px 35px rgba(190, 26, 26, 0.1);
+}
+
+.badgeOfertaCard {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: #BE1A1A;
+  color: #F7D87F;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.imgBox {
+  width: 100%;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fdfdfd;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+  border: 1px solid #f1f1f1;
+}
+
+.imgProd {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+.infoBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.nombreProd {
+  font-size: 0.98rem;
+  color: #222;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.descProd {
+  font-size: 0.82rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.precioBox {
+  margin-top: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.precioOld {
+  font-size: 0.85rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.precioFinal {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #BE1A1A;
+}
+
+.agregarBtn {
+  width: 100%;
+  background: #BE1A1A;
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(190, 26, 26, 0.2);
+}
+
+.agregarBtn:hover {
+  background: #a01414;
+}
