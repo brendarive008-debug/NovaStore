@@ -36,6 +36,13 @@ const CartModal = forwardRef((props, ref) => {
   // NUEVO
   const [metodoPago, setMetodoPago] = useState('');
 
+  // NUEVO: Estado para los datos de la tarjeta
+  const [datosTarjeta, setDatosTarjeta] = useState({
+    numero: '',
+    exp: '',
+    cvv: ''
+  });
+
   const modalRef = useRef(null);
 
   // useLayoutEffect: mide el modal antes de mostrar los cambios visuales
@@ -127,6 +134,14 @@ const CartModal = forwardRef((props, ref) => {
   const handleInputChange = (e) => {
     setDatosEnvio({
       ...datosEnvio,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  // NUEVO: Manejador para los inputs de la tarjeta
+  const handleTarjetaChange = (e) => {
+    setDatosTarjeta({
+      ...datosTarjeta,
       [e.target.name]: e.target.value
     });
   };
@@ -270,20 +285,20 @@ const CartModal = forwardRef((props, ref) => {
                             +
                           </button>
 
-                        </div>
-
                       </div>
 
-                      <button
-                        className={styles.removeBtn}
-                        onClick={() =>
-                          removeFromCart(item.id)
-                        }
-                      >
-                        Eliminar
-                      </button>
-
                     </div>
+
+                    <button
+                      className={styles.removeBtn}
+                      onClick={() =>
+                        removeFromCart(item.id)
+                      }
+                    >
+                      Eliminar
+                    </button>
+
+                  </div>
 
                   ))}
 
@@ -504,6 +519,52 @@ const CartModal = forwardRef((props, ref) => {
                 </select>
 
               </div>
+
+              {/* NUEVO: FORMULARIO DE TARJETA CONDICIONAL */}
+              {(metodoPago === 'Tarjeta de crédito' || metodoPago === 'Tarjeta de débito') && (
+                <div className={styles.tarjetaContainer}>
+                  <h3>Detalles de la Tarjeta</h3>
+                  
+                  <div className={styles.inputGroup}>
+                    <label>Número de Tarjeta:</label>
+                    <input
+                      type="text"
+                      name="numero"
+                      maxLength="16"
+                      required
+                      value={datosTarjeta.numero}
+                      onChange={handleTarjetaChange}
+                      placeholder="1234 5678 9012 3456"
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label>Fecha de Expiración (MM/AA):</label>
+                    <input
+                      type="text"
+                      name="exp"
+                      maxLength="5"
+                      required
+                      value={datosTarjeta.exp}
+                      onChange={handleTarjetaChange}
+                      placeholder="MM/AA"
+                    />
+                  </div>
+
+                  <div className={styles.inputGroup}>
+                    <label>CVV:</label>
+                    <input
+                      type="password"
+                      name="cvv"
+                      maxLength="4"
+                      required
+                      value={datosTarjeta.cvv}
+                      onChange={handleTarjetaChange}
+                      placeholder="123"
+                    />
+                  </div>
+                </div>
+              )}
 
               <div className={styles.btnRow}>
 

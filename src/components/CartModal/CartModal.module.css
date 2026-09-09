@@ -18,6 +18,8 @@
   border-radius: 16px;
   width: 90%;
   max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -93,6 +95,22 @@
   font-size: 0.9rem;
   background: #fff;
   color: #222;
+}
+
+.tarjetaContainer {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tarjetaContainer h3 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: #333;
 }
 
 .footerCart,
