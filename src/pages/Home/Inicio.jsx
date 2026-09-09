@@ -58,9 +58,7 @@ export default function Inicio({ setActiveTab }) {
               </div>
 
               <div className={styles.actions}>
-                <button className={styles.infoBtn} onClick={() => setSelectedProduct(prod.id)}>
-                  Detalles
-                </button>
+
                 <button className={styles.addBtn} onClick={() => addToCart(prod)}>
                   + Agregar
                 </button>
